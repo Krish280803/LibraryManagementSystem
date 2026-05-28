@@ -6,83 +6,80 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         Library library = new Library();
 
-        // Default Books
+        // default books
+
         library.addBook(
                 new Book(101,
-                        "Java Programming",
-                        "James Gosling"));
+                        "Java ",
+                        "Tarun"));
 
         library.addBook(
                 new Book(102,
-                        "Python Basics",
-                        "Guido Van Rossum"));
+                        "Python ",
+                        "Srikrishna"));
 
         library.addBook(
                 new Book(103,
-                        "Data Structures",
-                        "Mark Allen"));
+                        "C++",
+                        "Varun"));
 
         int choice;
 
         do {
 
-            System.out.println("\n===== LIBRARY MANAGEMENT SYSTEM =====");
+            System.out.println("\n WELL COME TO LIBRARY ");
 
-            System.out.println("1. Show All Books");
-            System.out.println("2. Add New Book");
-            System.out.println("3. Issue Book");
-            System.out.println("4. Return Book");
-            System.out.println("5. Search Book");
-            System.out.println("6. Exit");
+            System.out.println("1. SHOW AVALIBALE BOOKS");
+            System.out.println("2. ADD NEW BOOKS");
+            System.out.println("3. ISSUE BOOK");
+            System.out.println("4. RETURN BOOK");
+            System.out.println("5. SEARCH BOOK");
+            System.out.println("6. EXIT");
 
-            System.out.print("\nEnter Choice : ");
+            System.out.print("Enter Choice : ");
 
-            choice = scanner.nextInt();
+            choice = sc.nextInt();
 
             switch (choice) {
 
                 case 1:
 
-                    library.displayBooks();
+                    library.showBooks();
                     break;
 
                 case 2:
 
                     System.out.print("Enter Book ID : ");
-                    int id = scanner.nextInt();
 
-                    // Check duplicate ID first
-                    boolean exists =
-                            library.checkBookExists(id);
+                    int id = sc.nextInt();
 
-                    if (exists) {
+                    if (library.checkBookExists(id)) {
 
                         System.out.println(
                                 "Book ID already exists!");
+                    }
 
-                    } else {
+                    else {
 
-                        scanner.nextLine();
+                        sc.nextLine();
 
                         System.out.print(
-                                "Enter Book Title : ");
+                                "Enter Book Name : ");
 
-                        String title =
-                                scanner.nextLine();
+                        String name = sc.nextLine();
 
                         System.out.print(
                                 "Enter Author Name : ");
 
-                        String author =
-                                scanner.nextLine();
+                        String author = sc.nextLine();
 
                         library.addBook(
                                 new Book(id,
-                                        title,
+                                        name,
                                         author));
                     }
 
@@ -93,18 +90,19 @@ public class Main {
                     try {
 
                         System.out.print(
-                                "Enter Book ID to Issue : ");
+                                "Enter Book ID : ");
 
-                        int issueId = scanner.nextInt();
+                        int issueId = sc.nextInt();
 
                         library.issueBook(issueId);
 
-                    } catch (
+                    }
+
+                    catch (
                             InvalidBookOperationException e) {
 
                         System.out.println(
-                                "Error : "
-                                        + e.getMessage());
+                                e.getMessage());
                     }
 
                     break;
@@ -114,31 +112,31 @@ public class Main {
                     try {
 
                         System.out.print(
-                                "Enter Book ID to Return : ");
+                                "Enter Book ID : ");
 
-                        int returnId = scanner.nextInt();
+                        int returnId = sc.nextInt();
 
                         library.returnBook(returnId);
 
-                    } catch (
+                    }
+
+                    catch (
                             InvalidBookOperationException e) {
 
                         System.out.println(
-                                "Error : "
-                                        + e.getMessage());
+                                e.getMessage());
                     }
 
                     break;
 
                 case 5:
 
-                    scanner.nextLine();
+                    sc.nextLine();
 
                     System.out.print(
                             "Enter Book ID or Name : ");
 
-                    String keyword =
-                            scanner.nextLine();
+                    String keyword = sc.nextLine();
 
                     library.searchBook(keyword);
 
@@ -146,19 +144,21 @@ public class Main {
 
                 case 6:
 
-                    System.out.println(
-                            "\nThank You!");
-
+                    System.out.println("THANK YOU COME AGAIN");
                     break;
 
                 default:
 
-                    System.out.println(
-                            "Invalid Choice!");
+                    System.out.println("Invalid Choice");
+
+                    System.out.println("Exiting Program...");
+
+                    choice = 6;                   
             }
 
-        } while (choice != 6);
+        } 
+        while (choice != 6);
 
-        scanner.close();
+       
     }
 }
