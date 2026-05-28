@@ -8,59 +8,43 @@ import java.util.stream.Collectors;
 
 public class Library {
 
-    // ArrayList to store books
-    private List<Book> books = new ArrayList<>();
+    List<Book> books = new ArrayList<>();
 
-    // HashMap to store users
-    private Map<Integer, User> users = new HashMap<>();
+    Map<Integer, User> users = new HashMap<>();
 
-    // Check Duplicate Book ID
-    public boolean checkBookExists(int bookId) {
-
-        return books.stream()
-                .anyMatch(book ->
-                        book.getBookId() == bookId);
-    }
-
-    // Add Book
+    // add book
     public void addBook(Book book) {
 
         books.add(book);
 
-        System.out.println(book.getTitle()
-                + " added successfully.");
     }
 
-    // Add User
-    public void addUser(User user) {
+    // check duplicate id
+    public boolean checkBookExists(int id) {
 
-        users.put(user.getUserId(), user);
-
-        System.out.println(user.getUserName()
-                + " registered successfully.");
+        return books.stream()
+                .anyMatch(book -> book.getBookId() == id);
     }
 
-    // Display All Books
-    public void displayBooks() {
-
-        System.out.println("\n===== ALL BOOKS =====");
+    // display books
+    public void showBooks() {
 
         if (books.isEmpty()) {
 
             System.out.println("No books available.");
+        }
 
-        } else {
+        else {
 
-            // Lambda Expression
             books.forEach(System.out::println);
         }
     }
 
-    // Issue Book
-    public void issueBook(int bookId)
+    // issue book
+    public void issueBook(int id)
             throws InvalidBookOperationException {
 
-        Book book = findBookById(bookId);
+        Book book = findBook(id);
 
         if (book == null) {
 
@@ -76,15 +60,14 @@ public class Library {
 
         book.setIssued(true);
 
-        System.out.println(book.getTitle()
-                + " issued successfully.");
+        System.out.println("Book issued successfully.");
     }
 
-    // Return Book
-    public void returnBook(int bookId)
+    // return book
+    public void returnBook(int id)
             throws InvalidBookOperationException {
 
-        Book book = findBookById(bookId);
+        Book book = findBook(id);
 
         if (book == null) {
 
@@ -100,40 +83,40 @@ public class Library {
 
         book.setIssued(false);
 
-        System.out.println(book.getTitle()
-                + " returned successfully.");
+        System.out.println("Book returned successfully.");
     }
 
-    // Search Book by ID or Name
+    // search book
     public void searchBook(String keyword) {
 
         List<Book> result = books.stream()
                 .filter(book ->
                         String.valueOf(book.getBookId())
                                 .equals(keyword)
-                                || book.getTitle()
-                                .toLowerCase()
-                                .contains(keyword.toLowerCase()))
-                .collect(Collectors.toList());
 
-        System.out.println("\n===== SEARCH RESULT =====");
+                                ||
+
+                                book.getTitle()
+                                        .toLowerCase()
+                                        .contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
 
         if (result.isEmpty()) {
 
             System.out.println("No books found.");
+        }
 
-        } else {
+        else {
 
             result.forEach(System.out::println);
         }
     }
 
-    // Find Book by ID
-    private Book findBookById(int bookId) {
+    // find book
+    private Book findBook(int id) {
 
         return books.stream()
-                .filter(book ->
-                        book.getBookId() == bookId)
+                .filter(book -> book.getBookId() == id)
                 .findFirst()
                 .orElse(null);
     }
