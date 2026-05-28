@@ -1,5 +1,6 @@
 package com.library.management;
 
+
 public class Book {
 
     private int bookId;
@@ -7,7 +8,6 @@ public class Book {
     private String author;
     private boolean issued;
 
-    // Constructor
     public Book(int bookId, String title, String author) {
 
         this.bookId = bookId;
@@ -16,7 +16,6 @@ public class Book {
         this.issued = false;
     }
 
-    // Getter Methods
     public int getBookId() {
         return bookId;
     }
@@ -33,19 +32,29 @@ public class Book {
         return issued;
     }
 
-    // Setter Method
     public void setIssued(boolean issued) {
         this.issued = issued;
     }
 
-    // Display Book Details
     @Override
     public String toString() {
 
+        String status;
+
+        if (issued) {
+
+            status = "Not Avaliable";
+        }
+
+        else {
+
+            status = "Avaliable";
+        }
+
         return "Book ID : " + bookId +
-                "\nTitle   : " + title +
-                "\nAuthor  : " + author +
-                "\nIssued  : " + issued +
-                "\n---------------------------";
+                "\nBook Name : " + title +
+                "\nAuthor : " + author +
+                "\nStatus : " + status +
+                "\n";
     }
 }
